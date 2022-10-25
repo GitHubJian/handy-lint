@@ -1,13 +1,7 @@
 import chalk from 'chalk';
 import prettier from './prettier';
-import eslint, {
-    formatLog as formatESLintLog,
-    countErrors as countESLintErrors,
-} from './eslint';
-import stylelint, {
-    formatLog as formatStylelintLog,
-    countErrors as countStylelintErrors,
-} from './stylelint';
+import eslint, {formatLog as formatESLintLog, countErrors as countESLintErrors} from './eslint';
+import stylelint, {formatLog as formatStylelintLog, countErrors as countStylelintErrors} from './stylelint';
 
 function formatSummaryLog(errorCount, warningCount) {
     function pluralize(word, count) {
@@ -42,14 +36,11 @@ export default async function main(paths, cwd) {
     prettier(paths, cwd);
 
     const eslintResults = await eslint(paths, cwd);
-    const {errorCount: eslintErrorCount, warningCount: eslintWarningCount} =
-        countESLintErrors(eslintResults);
+    const {errorCount: eslintErrorCount, warningCount: eslintWarningCount} = countESLintErrors(eslintResults);
 
     const stylelintResult = await stylelint(paths, cwd);
-    const {
-        errorCount: stylelintErrorCount,
-        warningCount: stylelintWarningCount,
-    } = countStylelintErrors(stylelintResult);
+    const {errorCount: stylelintErrorCount, warningCount: stylelintWarningCount}
+        = countStylelintErrors(stylelintResult);
 
     const summaryLog = formatSummaryLog(
         eslintErrorCount + stylelintErrorCount,

@@ -1,9 +1,9 @@
-import prettier from 'prettier';
 import fs from 'fs';
 import path from 'path';
-import options from './options';
+import prettier from 'prettier';
 import isDir from '../util/is-dir';
 import findFiles from '../util/find-files';
+import options from './options';
 
 const Parser = {
     '.html': 'html',
@@ -45,13 +45,14 @@ function format(filepath): null | Error {
         fs.writeFileSync(filepath, newCotent, 'utf-8');
 
         return null;
-    } catch (e) {
+    }
+    catch (e) {
         return e as Error;
     }
 }
 
-function formats(filepaths: Array<string>): Array<Error> {
-    const errors: Array<Error> = [];
+function formats(filepaths: string[]): Error[] {
+    const errors: Error[] = [];
 
     for (let i = 0, len = filepaths.length; i < len; i++) {
         let filepath = filepaths[i];
@@ -64,8 +65,8 @@ function formats(filepaths: Array<string>): Array<Error> {
     return errors;
 }
 
-export default function (filepaths: Array<string>, cwd: string): Array<Error> {
-    const errors: Array<Error> = [];
+export default function (filepaths: string[], cwd: string): Error[] {
+    const errors: Error[] = [];
 
     for (let i = 0, len = filepaths.length; i < len; i++) {
         const filepath = filepaths[i];
@@ -78,9 +79,10 @@ export default function (filepaths: Array<string>, cwd: string): Array<Error> {
                 const currentErrors = formats(currentFilepaths);
 
                 errors.push(...currentErrors);
-            } else {
+            }
+            else {
                 const err = format(filepath);
-                err && errors.push(err!);
+                err && errors.push(err);
             }
         }
     }

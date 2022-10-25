@@ -1,6 +1,6 @@
 {
     "name": "hlint",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "简易 LINT 集成工具",
     "bin": {
         "hlint": "bin/cli.js"
@@ -12,11 +12,7 @@
         "build": "npm run clean && tsc -p src",
         "clean": "rm -fr dist"
     },
-    "files": [
-        "bin",
-        "dist",
-        "public"
-    ],
+    "files": ["bin", "dist", "public"],
     "dependencies": {
         "@babel/eslint-parser": "7.18.2",
         "@babel/eslint-plugin": "7.17.7",

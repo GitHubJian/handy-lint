@@ -40,11 +40,12 @@ function translateOptions(configPath) {
         ignorePath: path.resolve(__dirname, '../../public/.eslintignore'),
         overrideConfig: {
             globals:
-                global &&
-                global.reduce((obj, name) => {
+                global
+                && global.reduce((obj, name) => {
                     if (name.endsWith(':true')) {
                         obj[name.slice(0, -5)] = 'writable';
-                    } else {
+                    }
+                    else {
                         obj[name] = 'readonly';
                     }
                     return obj;
@@ -56,11 +57,11 @@ function translateOptions(configPath) {
 }
 
 function classify(paths): {
-    [key: string]: Array<string>;
+    [key: string]: string[];
 } {
     const extnames = ['.js', '.ts', '.tsx', '.vue'];
 
-    const allFilepaths: Array<string> = [];
+    const allFilepaths: string[] = [];
     for (let i = 0, len = paths.length; i < len; i++) {
         const filepath = paths[i];
 
@@ -73,7 +74,8 @@ function classify(paths): {
             });
 
             allFilepaths.push(...realCurrentFilepaths);
-        } else {
+        }
+        else {
             const currentExtname = path.extname(filepath);
 
             if (extnames.includes(currentExtname)) {
@@ -171,7 +173,8 @@ export function formatLog(results: ESLint.LintResult[], cwd: string): string {
 
                 if (message.fatal || message.severity === 2) {
                     messageType = chalk.red('error');
-                } else {
+                }
+                else {
                     messageType = chalk.yellow('warning');
                 }
 
@@ -192,11 +195,7 @@ export function formatLog(results: ESLint.LintResult[], cwd: string): string {
             }
         )
             .split('\n')
-            .map(el =>
-                el.replace(/(\d+)\s+(\d+)/u, (m, p1, p2) =>
-                    chalk.dim(`${p1}:${p2}`)
-                )
-            )
+            .map(el => el.replace(/(\d+)\s+(\d+)/u, (m, p1, p2) => chalk.dim(`${p1}:${p2}`)))
             .join('\n')}\n\n`;
     });
 
@@ -205,10 +204,7 @@ export function formatLog(results: ESLint.LintResult[], cwd: string): string {
     return total > 0 ? chalk.reset(output) : '';
 }
 
-export default async function (
-    filepaths: Array<string>,
-    cwd: string
-): Promise<ESLint.LintResult[]> {
+export default async function (filepaths: string[], cwd: string): Promise<ESLint.LintResult[]> {
     const maps = classify(filepaths);
     const keys = Object.keys(maps);
     const results: ESLint.LintResult[] = [];

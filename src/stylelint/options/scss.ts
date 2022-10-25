@@ -32,35 +32,20 @@ exports = {
         'scss/dollar-variable-empty-line-after': [
             'always',
             {
-                except: [
-                    'last-nested',
-                    'before-comment',
-                    'before-dollar-variable',
-                ],
+                except: ['last-nested', 'before-comment', 'before-dollar-variable'],
             },
         ],
         'scss/dollar-variable-empty-line-before': [
             'always',
             {
-                except: [
-                    'first-nested',
-                    'after-comment',
-                    'after-dollar-variable',
-                ],
+                except: ['first-nested', 'after-comment', 'after-dollar-variable'],
             },
         ],
         'scss/dollar-variable-first-in-block': [
             true,
             {
                 ignore: ['comments', 'imports'],
-                except: [
-                    'root',
-                    'at-rule',
-                    'function',
-                    'mixin',
-                    'if-else',
-                    'loops',
-                ],
+                except: ['root', 'at-rule', 'function', 'mixin', 'if-else', 'loops'],
             },
         ],
         'scss/dollar-variable-no-missing-interpolation': true,

@@ -9,13 +9,13 @@ function pleaseUpgradeNode(wanted, id) {
         console.log(
             // eslint-disable-line no-console
             chalk.red(
-                'You are using Node ' +
-                    process.version +
-                    ', but this version of ' +
-                    id +
-                    ' requires Node ' +
-                    wanted +
-                    '.\nPlease upgrade your Node version.'
+                'You are using Node '
+                    + process.version
+                    + ', but this version of '
+                    + id
+                    + ' requires Node '
+                    + wanted
+                    + '.\nPlease upgrade your Node version.'
             )
         );
         process.exit(1);

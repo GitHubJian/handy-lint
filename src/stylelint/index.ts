@@ -3,10 +3,10 @@ import {lint as standalone, LinterResult, LintResult} from 'stylelint';
 import findFiles from '../util/find-files';
 import isDir from '../util/is-dir';
 
-function classify(paths): Array<string> {
+function classify(paths): string[] {
     const extnames = ['.less', '.css', '.vue'];
 
-    const allFilepaths: Array<string> = [];
+    const allFilepaths: string[] = [];
     for (let i = 0, len = paths.length; i < len; i++) {
         const filepath = paths[i];
 
@@ -19,7 +19,8 @@ function classify(paths): Array<string> {
             });
 
             allFilepaths.push(...realCurrentFilepaths);
-        } else {
+        }
+        else {
             const currentExtname = path.extname(filepath);
 
             if (extnames.includes(currentExtname)) {
@@ -59,6 +60,14 @@ export function formatLog(linterResult: LinterResult, cwd: string) {
 
 export default async function (files, cwd): Promise<LinterResult> {
     const filepaths = classify(files);
+
+    if (filepaths.length === 0) {
+        return {
+            errored: false,
+            output: '',
+            results: [],
+        };
+    }
 
     const options = {
         formatter: 'string' as 'string',
